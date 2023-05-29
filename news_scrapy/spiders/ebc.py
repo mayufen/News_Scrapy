@@ -2,6 +2,7 @@ from datetime import datetime
 
 import bs4
 import scrapy
+from news_scrapy.items import NewsScrapyItem
 
 
 class EbcSpider(scrapy.Spider):
@@ -25,4 +26,12 @@ class EbcSpider(scrapy.Spider):
             date_with_year = str(datetime.now().year) + f'/{date_str}'
             date = datetime.strptime(date_with_year, "%Y/%m/%d %H:%M")
 
-            print(date)
+            item = NewsScrapyItem()
+            item['title'] = title
+            item['url'] = url
+            item['summary'] = summary
+            item['date'] = date
+
+            yield item
+
+            
